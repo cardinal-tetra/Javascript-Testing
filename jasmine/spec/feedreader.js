@@ -31,29 +31,55 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        it('have a url defined and not empty', function() {
+            for (var i = 0, j = allFeeds.length; i < j; i++) {
+                expect(allFeeds[i].url).toBeDefined();
+                expect(allFeeds[i].url.length).not.toBe(0);
+            }
+        });
 
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        it('have a name defined and not empty', function() {
+            for (var i = 0, j = allFeeds.length; i < j; i++) {
+                expect(allFeeds[i].name).toBeDefined();
+                expect(allFeeds[i].name.length).not.toBe(0);
+            }
+        });
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
-
+    describe('The menu', function() {
+        // save some useful variables
+        var self = this;
+        var menuIcon = $('.menu-icon-link');
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+        it('is hidden by default', function() {
+            if ($('body').attr('class') == 'menu-hidden') {
+                // the body is class='menu-hidden' by default, thus we would expect the slide menu to be positioned off-screen
+                expect($('.slide-menu').offset().left).toBe(-192);
+            }
+        });
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-
+        it('changes visibility when clicked', function() {
+            // click the menu to display and save position
+            setTimeout(function(){ menuIcon.click() }, 1000);
+            
+        });
+    });
     /* TODO: Write a new test suite named "Initial Entries" */
 
         /* TODO: Write a test that ensures when the loadFeed
