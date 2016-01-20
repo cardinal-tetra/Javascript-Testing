@@ -64,7 +64,7 @@ $(function() {
          */
         it('is hidden by default', function() {
                 // the body begins as class='menu-hidden' and this causes a specific css selector to apply to '.slide-menu' causing it to be offscreen, so we just need to test that the body has class='menu-hidden' when we start off
-                expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
          /* TODO: Write a test that ensures the menu changes
@@ -72,8 +72,16 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+        it('changes visibility when clicked', function(){
+            // the menu is hidden by default so we click to display and then run our test
+            setTimeout(menuIcon.click(), 1000);
+            setTimeout(expect($('body').hasClass('menu-hidden')).not.toBe(true), 2000);
+            // we click to hide the menu and run our test
+            setTimeout(menuIcon.click(), 3000);
+            setTimeout(expect($('body').hasClass('menu-hidden')).toBe(true), 4000);
+        });
         
-        
+    });
     /* TODO: Write a new test suite named "Initial Entries" */
 
         /* TODO: Write a test that ensures when the loadFeed
