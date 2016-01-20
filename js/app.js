@@ -130,6 +130,5 @@ $(function() {
      */
     menuIcon.on('click', function() {
         $('body').toggleClass('menu-hidden');
-        console.log($('.slide-menu').offset().left);
     });
 }());

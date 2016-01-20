@@ -57,6 +57,7 @@ $(function() {
         // save some useful variables
         var self = this;
         var menuIcon = $('.menu-icon-link');
+        var clickMenuIcon = function() { menuIcon.click() };
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
@@ -72,29 +73,40 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-        it('changes visibility when clicked', function(){
-            // the menu is hidden by default so we click to display and then run our test
-            setTimeout(menuIcon.click(), 1000);
-            setTimeout(expect($('body').hasClass('menu-hidden')).not.toBe(true), 2000);
-            // we click to hide the menu and run our test
-            setTimeout(menuIcon.click(), 3000);
-            setTimeout(expect($('body').hasClass('menu-hidden')).toBe(true), 4000);
+        it('changes visibility when clicked', function() {
+            // since the slide-menu is hidden on default we click it to display and check to see that it is no longer class='menu-hidden'
+            setTimeout(clickMenuIcon(), 1000);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
+            // now that the slide-menu is displayed we click to hide it and check to see it is class='menu-hidden'
+            setTimeout(clickMenuIcon(), 2000);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
-        
     });
     /* TODO: Write a new test suite named "Initial Entries" */
-
+    describe('Initial Entries', function() {
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test wil require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });
+        });
+            
+        it('should have at least one entry', function() {
+            expect($('.feed').find('.entry').length).toBeGreaterThan(0);
+        });
+    });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
-
+    /* TODO: Write a new test suite named "New Feed Selection"*/
+    describe('New Feed Selection', function() {
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        
+    });
 }());
