@@ -55,7 +55,6 @@ $(function() {
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
         // save some useful variables
-        var self = this;
         var menuIcon = $('.menu-icon-link');
         var clickMenuIcon = function() { menuIcon.click() };
         /* TODO: Write a test that ensures the menu element is
@@ -82,6 +81,7 @@ $(function() {
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
+    
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
         /* TODO: Write a test that ensures when the loadFeed
@@ -96,8 +96,9 @@ $(function() {
             });
         });
             
-        it('should have at least one entry', function() {
+        it('should have at least one entry', function(done) {
             expect($('.feed').find('.entry').length).toBeGreaterThan(0);
+            done();
         });
     });
 
@@ -107,6 +108,25 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        // declare some useful variables to save the html of our feeds
+        var firstFeed,
+            secondFeed;
         
+        // let's save a value to firstFeed, and make sure the call to loadFeed is completed before we move on to secondFeed
+        beforeEach(function(done) {
+            loadFeed(1, function() {
+                firstFeed = $('.feed').html();
+                done();
+            });
+        });
+        
+        // now within our 'it' call we will change the feed, save its content, then make a comparison in our expectation call
+        it ('changes content', function(done) {
+            loadFeed(3, function(){
+                secondFeed = $('.feed').html();
+                expect(firstFeed).not.toBe(secondFeed);
+                done();
+            });
+        });
     });
 }());
