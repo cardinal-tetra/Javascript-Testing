@@ -122,7 +122,7 @@ $(function() {
         
         // now within our 'it' call we will change the feed, save its content, then make a comparison in our expectation call
         it ('changes content', function(done) {
-            loadFeed(3, function(){
+            loadFeed(3, function() {
                 secondFeed = $('.feed').html();
                 expect(firstFeed).not.toBe(secondFeed);
                 done();
